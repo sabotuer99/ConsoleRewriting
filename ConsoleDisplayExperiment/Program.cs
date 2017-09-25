@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ConsoleDisplayExperiment.inputTransformer;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,36 +12,23 @@ namespace ConsoleDisplayExperiment
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("################################################################################");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("#                                                                              #");
-            Console.WriteLine("################################################################################");
-
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            var start = DateTime.Now.Ticks;
-            var end = start;
-            for(int i = 0; end - start < 10000000; i++)
+            string[] lines = File.ReadAllLines("input/pacmap.txt");
+            string[] stretched = new string[lines.Length];
+            for(int i = 0; i < lines.Length; i++)
             {
-                Console.SetCursorPosition(35, 10);
-                Console.Write(i);
+                var sb = new StringBuilder();
+                foreach (char x in lines[i].ToCharArray())
+                {
+                    sb.Append(x).Append(x);
+                }
+                stretched[i] = sb.ToString();
+            }
 
-                end = DateTime.Now.Ticks;
+            Console.ForegroundColor = ConsoleColor.Blue;
+            var drawing = new BoxDrawingTransformer().Transform(stretched);
+            foreach(var line in drawing)
+            {
+                Console.WriteLine(line);
             }
 
             Console.ReadLine();
