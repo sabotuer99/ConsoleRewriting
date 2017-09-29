@@ -92,7 +92,7 @@ namespace ConsoleDisplayExperiment
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.SetCursorPosition(j * 2, i);
-                        Console.Write("CƆ╭╮╰╯");
+                        Console.Write(@"(<  >)  ()\/");
                     }
 
                     if (x[j] == 'O')
@@ -128,7 +128,36 @@ namespace ConsoleDisplayExperiment
                 }
             }
 
-            Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.White;
+            while (true)
+            {
+
+                var key = Console.ReadKey();
+
+                var pressed = key.Key;
+                Console.SetCursorPosition(width - 10, height / 2 - 1);
+                    
+                    switch (pressed)
+                    {
+                        case ConsoleKey.UpArrow:
+                            Console.Write("↑ ");
+                            break;
+                        case ConsoleKey.DownArrow:
+                            Console.Write("↓ ");
+                            break;
+                        case ConsoleKey.LeftArrow:
+                            Console.Write("← ");
+                            break;
+                        case ConsoleKey.RightArrow:
+                            Console.Write("→ ");
+                            break;
+                        default:
+                            Console.Write(pressed.ToString().PadRight(2).Substring(0,2));
+                            break;
+                    }
+
+            }
+            
         }
     }
 }
